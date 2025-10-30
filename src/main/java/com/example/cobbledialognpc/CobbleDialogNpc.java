@@ -5,6 +5,8 @@ import com.example.cobbledialognpc.command.MainCommand;
 import com.example.cobbledialognpc.command.OpenDialogCommand;
 import com.example.cobbledialognpc.config.MainConfig;
 import lombok.Getter;
+import org.bukkit.Bukkit;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -24,14 +26,14 @@ public final class CobbleDialogNpc extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
-        // 初始化主配置文件
         initializeMainConfig();
 
-        // 初始化配置目录和文件
         initializeDialogDirectory();
         
         initializeCommands();
-        
+
+        printStartupMessage();
+
         getLogger().info("CobbleDialogNPC 插件已启用！");
     }
 
@@ -45,11 +47,7 @@ public final class CobbleDialogNpc extends JavaPlugin {
      */
     private void initializeMainConfig() {
         try {
-            // 初始化MainConfig实例
             MainConfig.initialize();
-            
-            getLogger().info("主配置文件已初始化");
-            getLogger().info("调试模式: " + (MainConfig.INSTANCE.isDebugEnabled() ? "启用" : "禁用"));
         } catch (Exception e) {
             getLogger().severe("初始化主配置文件失败: " + e.getMessage());
         }
@@ -65,7 +63,6 @@ public final class CobbleDialogNpc extends JavaPlugin {
         File dialogDir = new File(getDataFolder(), "dialog");
         if (!dialogDir.exists()) {
             dialogDir.mkdirs();
-            getLogger().info("已创建对话配置目录: " + dialogDir.getAbsolutePath());
         }
 
         try {
@@ -118,5 +115,25 @@ public final class CobbleDialogNpc extends JavaPlugin {
         getCommand("cdn").setTabCompleter(mainCommand);
     }
 
+
+    private static void printStartupMessage() {
+        ConsoleCommandSender consoleSender = Bukkit.getConsoleSender();
+        consoleSender.sendMessage("§7[§aCobbleDialogNpc§7] §b┏┳━━━━━━━━━━━━┓");
+        consoleSender.sendMessage("§7[§aCobbleDialogNpc§7] §b┃┃████████████┃");
+        consoleSender.sendMessage("§7[§aCobbleDialogNpc§7] §b┣┫████┏━━━━┓██┃");
+        consoleSender.sendMessage("§7[§aCobbleDialogNpc§7] §b┃┃████┃ 白 ┃██┃");
+        consoleSender.sendMessage("§7[§aCobbleDialogNpc§7] §b┣┫████┃ 嫖 ┃██┃");
+        consoleSender.sendMessage("§7[§aCobbleDialogNpc§7] §b┃┃████┃ 宝 ┃██┃");
+        consoleSender.sendMessage("§7[§aCobbleDialogNpc§7] §b┃┃████┃ 典 ┃██┃");
+        consoleSender.sendMessage("§7[§aCobbleDialogNpc§7] §b┃┃████┗━━━━┛██┃");
+        consoleSender.sendMessage("§7[§aCobbleDialogNpc§7] §b┣┫████████████┃");
+        consoleSender.sendMessage("§7[§aCobbleDialogNpc§7] §b┃┃████████████┃");
+        consoleSender.sendMessage("§7[§aCobbleDialogNpc§7] §b┗┻━━━━━━━━━━━━┛");
+        consoleSender.sendMessage("§7[§aCobbleDialogNpc§7] §b欢迎使用CobbleDialogNpc 随机体型 插件");
+        consoleSender.sendMessage("§7[§aCobbleDialogNpc§7] §b作者:XiaoCaoAwA 感谢您的支持！");
+        consoleSender.sendMessage("§7[§aCobbleDialogNpc§7] §b本插件为免费插件,如付费购买就是被骗了！");
+        consoleSender.sendMessage("§7[§aCobbleDialogNpc§7] §b加入官方插件交流群：966720491 快速反馈问题和需求");
+        consoleSender.sendMessage("§7[§aCobbleDialogNpc§7] §b官方插件交流群有许多有趣的小插件等您来获取哟！~");
+    }
 }
 
