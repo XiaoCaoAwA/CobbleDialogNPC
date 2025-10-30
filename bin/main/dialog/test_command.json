@@ -1,0 +1,61 @@
+{
+  "title": "命令测试",
+  "description": "测试命令执行功能",
+  "pages": [
+    {
+      "id": "main",
+      "speaker": "测试NPC",
+      "text": "点击按钮测试命令执行：",
+      "inputs": [
+        {
+          "text": "测试私聊命令",
+          "action": {
+            "type": "tell",
+            "commands": [
+              "§a这是一条测试消息！",
+              "§b你的名字是：{p}"
+            ]
+          }
+        },
+        {
+          "text": "测试给予物品",
+          "action": {
+            "type": "console",
+            "commands": [
+              "give {p} minecraft:stone 1"
+            ]
+          }
+        },
+        {
+          "text": "测试命令+跳转",
+          "action": {
+            "type": "tell",
+            "commands": [
+              "§c执行命令并跳转到下一页"
+            ]
+          },
+          "next": "next_page"
+        },
+        {
+          "text": "关闭",
+          "action": "close"
+        }
+      ]
+    },
+    {
+      "id": "next_page",
+      "speaker": "测试NPC",
+      "text": "成功跳转到下一页！命令也执行了吗？",
+      "inputs": [
+        {
+          "text": "返回主页",
+          "next": "main"
+        },
+        {
+          "text": "关闭",
+          "action": "close"
+        }
+      ]
+    }
+  ]
+}
